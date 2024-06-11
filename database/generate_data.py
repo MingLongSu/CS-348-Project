@@ -30,14 +30,14 @@ def generate_fake_events(num_events, user_ids):
     for _ in range(num_events):
         event = {
             'event_id': str(uuid.uuid4()),
-            'name': fake.catch_phrase(),
+            'name': 'hello',
             'location': fake.city(),
             'event_time': fake.date_time_between(start_date='-1y', end_date='+1y').strftime('%Y-%m-%d %H:%M:%S'),
             'curr_capacity': fake.random_int(min=0, max=100),
             'max_capacity': 100,
             'owner_id': fake.random_element(elements=user_ids),
             'category': fake.word(),
-            'description': fake.text(max_nb_chars=200)
+            'description': 'hello'
         }
         events.append(event)
     return events
