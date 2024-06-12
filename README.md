@@ -8,3 +8,9 @@
 5. Run 'psql -U postgres -d NAME_OF_YOUR_DB -f .\database\populate_tables.sql'
 6. Run 'psql -U postgres -d NAME_OF_YOUR_DB' to connect to your local DB. Check that your DB was populated properly by running 'SELECT * Users'
 7. If you want to create different sample data for the tables, run 'python .\generate_data.py'
+
+## Django
+1. Install Django from https://docs.djangoproject.com/en/5.0/topics/install/
+2. Change the db connection options in settings.py
+3. Install psycopg to interact with PostgeSQL: `pip install "psycopg[binary,pool]" `
+4. Run `py manage.py runserver` from the cs348 directory to run the django locally
