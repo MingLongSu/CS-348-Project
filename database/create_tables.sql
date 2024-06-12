@@ -11,12 +11,14 @@ CREATE TABLE IF NOT EXISTS Events (
     event_id UUID PRIMARY KEY,
     name VARCHAR(128),
     location VARCHAR(128),
-    event_time TIMESTAMP,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
     curr_capacity INT,
     max_capacity INT,
     owner_id UUID,
     category VARCHAR(64),
     description VARCHAR(256),
+    active BOOLEAN, 
     FOREIGN KEY (owner_id) REFERENCES Users(user_id)
 );
 

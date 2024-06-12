@@ -32,12 +32,15 @@ def generate_fake_events(num_events, user_ids):
             'event_id': str(uuid.uuid4()),
             'name': 'hello',
             'location': fake.city(),
-            'event_time': fake.date_time_between(start_date='-1y', end_date='+1y').strftime('%Y-%m-%d %H:%M:%S'),
+            'start_time': fake.date_time_between(start_date='-1y', end_date='+1y').strftime('%Y-%m-%d %H:%M:%S'),
+            # Adjust this later so that end time actually ends after start time
+            'end_time': fake.date_time_between(start_date='-1y', end_date='+1y').strftime('%Y-%m-%d %H:%M:%S'),
             'curr_capacity': fake.random_int(min=0, max=100),
             'max_capacity': 100,
             'owner_id': fake.random_element(elements=user_ids),
             'category': fake.word(),
-            'description': 'hello'
+            'description': 'hello',
+            'active': True
         }
         events.append(event)
     return events
@@ -55,9 +58,9 @@ print(f'{num_users} fake users written to users.txt')
 user_ids = [user['user_id'] for user in users]
 events = generate_fake_events(num_events, user_ids)
 with open('../sample_data/events.txt', 'w') as file:
-    file.write('event_id,name,location,event_time,curr_capacity,max_capacity,owner_id,category,description\n')
+    file.write('event_id,name,location,start_time,end_time,curr_capacity,max_capacity,owner_id,category,description,active\n')
     for event in events:
-        file.write(f"{event['event_id']},{event['name']},{event['location']},{event['event_time']},{event['curr_capacity']},{event['max_capacity']},{event['owner_id']},{event['category']},{event['description']}\n")
+        file.write(f"{event['event_id']},{event['name']},{event['location']},{event['start_time']},{event['end_time']},{event['curr_capacity']},{event['max_capacity']},{event['owner_id']},{event['category']},{event['description']},{event['active']}\n")
 
 print(f'{num_events} fake events written to events.txt')
 
