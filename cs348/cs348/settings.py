@@ -79,7 +79,7 @@ DATABASES = {
         # update name and password for your own user
         "NAME": "CS-348",
         "USER": "postgres",
-        "PASSWORD": "NO CHANCE",
+        "PASSWORD": "Mynameisjeff#1",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
