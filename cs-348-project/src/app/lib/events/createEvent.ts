@@ -1,30 +1,50 @@
-import {v4 as uuidv4} from 'uuid';
+'use server'
+import getPostgresClient from "@/app/lib/postgresClient";
+import {ICreateEvent} from '@/app/lib/events/event';
+import { randomUUID } from "crypto";
+import {revalidatePath} from "next/cache";
+import {redirect} from "next/navigation";
 
-function createEvent(
-    name: string,
-    location: string,
-    event_time: string,
-    curr_capacity: number,
-    max_capacity: number,
-    owner_id: string,
-    category: string,
-    description: string
-  ): Event {
-    // Generate a random UUID for the event_id
-    const event_id = uuidv4();
-  
-    // Create the event object
-    const event: Event = {
-      event_id,
-      name,
-      location,
-      event_time,
-      curr_capacity,
-      max_capacity,
-      owner_id,
-      category,
-      description,
-    };
-  
-    return event;
-  }
+
+const createEvent = async (formData : FormData) : Promise<void> => {
+
+    const client = await getPostgresClient();
+    const query = `
+    INSERT INTO events (
+        event_id,
+        name,
+        location,
+        curr_capacity,
+        max_capacity,
+        owner_id,
+        category,
+        description,
+        start_time,
+        end_time,
+        active
+    ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+    );
+`;
+
+const values = [
+    randomUUID(),
+    formData.get('name'),
+    formData.get('location'),
+    formData.get('curr_capacity'),
+    formData.get('max_capacity'),
+    formData.get('owner_id'),
+    formData.get('category'),
+    formData.get('description'),
+    new Date(formData.get('start_time') as string),
+    new Date(formData.get('end_time') as string),
+    formData.get('active')
+];
+
+  await client.query(query, values);
+  console.log('Event inserted successfully');
+  revalidatePath('/events');
+  redirect('/events')
+}
+
+export default createEvent;
