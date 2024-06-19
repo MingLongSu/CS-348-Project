@@ -1,0 +1,2 @@
+event_id,user_id
+ceefec61-eedb-4602-a8e6-c1c70f7db509,c8dd09f1-a6cb-440e-9b5c-eff0f1b5b677

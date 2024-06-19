@@ -1,16 +1,5 @@
--- 3. search events by category 
+-- 3. Updates active field to false once end_time has passed
 
-SELECT
-	name,
-	event_id,
-	owner_id, 
-	location, 
-	start_time, 
-	end_time, 
-	curr_capacity, 
-	max_capacity, 
-	description,
-	category
-FROM Events 
-WHERE category = __EVENT_ID__
-;
+UPDATE Events 
+	SET active = FALSE
+  	WHERE active = TRUE AND end_time < NOW();

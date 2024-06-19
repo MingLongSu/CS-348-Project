@@ -1,0 +1,19 @@
+.centeredContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    flex-direction: column;
+}
+  
+.centeredText {
+    font-size: 50px;
+    color: white;
+}
+
+.functionButtons {
+    display: flex;
+    gap: 50px;
+    
+}

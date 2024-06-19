@@ -1,10 +1,8 @@
 "use client"
 import { useState } from 'react';
-import {ICreateEvent} from '@/app/lib/events/event';
+import { ICreateEvent } from '@/app/lib/events/event';
 import createEvent from '@/app/lib/events/createEvent';
-
 import React from 'react';
-
 
 const CreateEventPage = () => {
   const [formData, setFormData] = useState<ICreateEvent>({
@@ -12,7 +10,8 @@ const CreateEventPage = () => {
     location: '',
     curr_capacity: 0,
     max_capacity: 100,
-    owner_id: '1f15f8cf-96b9-42b9-82fb-f370015017bb',
+    // remember to replace this every time we generate new data, for testing purposes
+    owner_id: '5c44446c-a1c8-4158-b55c-12c4526b7434',
     category: '',
     description: '',
     start_time: new Date(),
@@ -20,6 +19,8 @@ const CreateEventPage = () => {
     active: false,
   });
 
+  // Added state for minimum end time
+  const [minEndTime, setMinEndTime] = useState(formData.start_time.toISOString().slice(0, 16));
 
   const is_valid_input = () => {
     const {
@@ -32,47 +33,49 @@ const CreateEventPage = () => {
       description,
       start_time,
       end_time,
-      active
+      active,
     } = formData;
-  
-    // Check for non-empty required fields
+
     if (!name.trim() || !location.trim() || !category.trim() || !description.trim()) {
       return false;
     }
-  
-    // Check for a valid owner ID (UUID format - simple check)
+
     if (!owner_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
       return false;
     }
-  
 
     if (curr_capacity < 0 || curr_capacity > max_capacity) {
       return false;
     }
-  
 
     if (max_capacity < 1 || max_capacity > 1000) {
       return false;
     }
-  
 
     if (!(start_time instanceof Date) || !(end_time instanceof Date) || start_time >= end_time) {
       return false;
     }
-  
 
     if (typeof active !== 'boolean') {
       return false;
     }
-  
-    return true; 
-  }
-  
+
+    return true;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const name = e.target.name;
-    let value : any = e.target.value;
-    if(name == "start_time" || name == "end_time"){
-        value = new Date(value);
+    let value: any = e.target.value;
+    if (name === 'start_time' || name === 'end_time') {
+      value = new Date(value);
+    }
+
+    if (name === 'active') {
+      value = value === 'true';
+    }
+    // Update minEndTime when start_time changes
+    if (name === 'start_time') {
+      setMinEndTime(new Date(value).toISOString().slice(0, 16));
     }
     setFormData({
       ...formData,
@@ -178,6 +181,7 @@ const CreateEventPage = () => {
               type="datetime-local"
               name="end_time"
               value={formData.end_time.toISOString().slice(0, 16)}
+              min={minEndTime}  // Added this line
               onChange={handleChange}
               required
               className="w-full p-2 border border-gray-300 rounded mt-1 bg-black"
@@ -198,7 +202,7 @@ const CreateEventPage = () => {
           </div>
           <div className="text-center">
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-red-500" disabled={!is_valid_input()}>
-              {!is_valid_input()? "FILL IT IN PROPERLY BEFORE SUBMITTING!" : "Submit Event"}
+              {!is_valid_input() ? "FILL IT IN PROPERLY BEFORE SUBMITTING!" : "Submit Event"}
             </button>
           </div>
         </form>

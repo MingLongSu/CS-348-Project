@@ -40,10 +40,8 @@ CREATE TABLE IF NOT EXISTS CheckIn (
 );
 
 CREATE TABLE IF NOT EXISTS BanList (
-    event_id UUID,
     user_id UUID,
-    PRIMARY KEY (event_id, user_id),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id),
+    PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
