@@ -13,7 +13,8 @@
 1. Install Next.js from https://nextjs.org/docs/getting-started/installation
 2. Change the db connection options in CS-348-Project/cs-348-project/.env
 3. Install required dependancies using npm install
-4. Use npm run dev to run the project locally
+4. Navigate to the "cs-348-project" directory
+5. Use npm run dev to run the project locally
 
 ## Additional Setup Notes
 1. DO NOT REGENERATE OUR SAMPLE DATA OR THE SAMPLE TESTS AND EXPECTED OUTPUT WILL BE DIFFERENT THAN WHAT WE HAVE WRITTEN OUT
