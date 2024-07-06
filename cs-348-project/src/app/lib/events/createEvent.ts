@@ -13,7 +13,8 @@ const createEvent = async (formData : FormData) : Promise<void> => {
     INSERT INTO events (
         event_id,
         name,
-        location,
+        city, 
+        address,
         curr_capacity,
         max_capacity,
         owner_id,
