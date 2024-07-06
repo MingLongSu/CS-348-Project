@@ -1,6 +1,6 @@
 user_id,first_name,last_name,age,gender,strikes
-2a1c8537-44f5-43fb-9be8-be4d7c2937ff,Jennifer,Richardson,40,F,2
-c8dd09f1-a6cb-440e-9b5c-eff0f1b5b677,Elizabeth,Aguirre,36,M,2
-9a44240b-59b6-4319-a380-0d24130d8c19,Jake,Carrillo,24,M,0
-5c44446c-a1c8-4158-b55c-12c4526b7434,Patricia,Hamilton,22,F,1
-605241c6-a03e-40c6-b2ef-5bc4b2e1b84a,Pamela,Lynch,67,M,3
+08afff84-bc39-4c95-a695-77d253438e19,Eric,Jones,65,M,3
+7798d9d7-ede5-47b9-937b-0f9b9270d13d,Timothy,Hayes,50,F,0
+4a2cd996-aa6b-4378-af59-6167abe86b06,Jimmy,Anderson,31,M,2
+1c80e4e4-450f-4645-b029-c0a400f792a2,Anthony,Jones,67,M,1
+9b5ee7b9-7ca4-4a51-b22b-e4b933a3fe2b,Elizabeth,Steele,86,M,0

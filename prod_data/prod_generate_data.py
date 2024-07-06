@@ -33,6 +33,12 @@ fixed_street_names = [
     "Walnut Street"
 ]
 
+fixed_descriptions = [
+    "Join us for the annual Community Charity Run on August 15th, where participants of all ages come together to support local nonprofits. The event will feature a 5K run/walk, live music, and food trucks. All proceeds will benefit community outreach programs.",
+    "Experience a culinary adventure at the Summer Food Festival on July 20th, featuring diverse dishes from around the world. Enjoy live cooking demonstrations, sample gourmet treats, and listen to local bands. Perfect for food enthusiasts and families alike!",
+    "Bring your blankets and enjoy a magical evening under the stars at our Outdoor Movie Night on September 10th. The featured film is a family-friendly classic, and concessions will be available. Gates open at 7 PM, and the movie starts at dusk."
+]
+
 # Number of fake records to generate
 num_users = 5
 num_events = 5
@@ -74,7 +80,7 @@ def generate_fake_events(num_events, user_ids):
             'max_capacity': 100,
             'owner_id': fake.random_element(elements=user_ids),
             'category': fake.word(),
-            'description': fake.color(), # DESCRIPTION
+            'description': fake.random_element(elements=fixed_descriptions), # DESCRIPTION
             'active': True
         }
         events.append(event)
