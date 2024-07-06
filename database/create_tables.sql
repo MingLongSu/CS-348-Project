@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS Users (
 CREATE TABLE IF NOT EXISTS Events (
     event_id UUID PRIMARY KEY,
     name VARCHAR(128),
-    location VARCHAR(128),
+    city VARCHAR(128),
+    address VARCHAR(128),
     start_time TIMESTAMP,
     end_time TIMESTAMP,
     curr_capacity INT,
