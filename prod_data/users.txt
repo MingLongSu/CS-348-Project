@@ -1,0 +1,6 @@
+user_id,first_name,last_name,age,gender,strikes
+29a6cd80-abaf-4964-a787-d05e245081b4,Tiffany,Adams,73,F,0
+aa507701-1e72-4383-a91b-b63abef5c4a0,Tracy,Wagner,55,F,3
+5f2de4b3-eb75-4ea3-bec0-02e909364c2d,Jennifer,Hunt,44,F,2
+8b9fa413-311b-468b-9810-c2c820a36d69,Kaitlin,Cohen,71,M,2
+2f51e15c-0c9f-4c75-9969-988bb15f255c,Anthony,Taylor,20,M,3
