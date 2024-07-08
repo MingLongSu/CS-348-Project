@@ -17,22 +17,25 @@ const EventsPage = async () => {
           key={event.event_id}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
         >
-          <h3 className="text-xl text-gray-600 font-bold mb-2">{event.name}</h3>
-          <p className="text-gray-600 mb-1">{event.address}, {event.city}</p>
-          <p className="text-gray-600 mb-4">
-            {event.start_time.toLocaleDateString()} - {event.end_time.toLocaleDateString()}
-          </p>
-          <p className="text-gray-800 mb-4">{event.description}</p>
-          <div className="flex justify-between items-center">
-            <div className="text-gray-600">
-              {event.curr_capacity}/{event.max_capacity} attending
+            <h3 className="text-xl text-gray-600 font-bold mb-2">{event.name}</h3>
+            <p className="text-gray-600 mb-1">{event.address}, {event.city}</p>
+            <p className="text-gray-600 mb-4">
+              {event.start_time.toLocaleDateString()} - {event.end_time.toLocaleDateString()}
+            </p>
+            <p className="text-gray-800 mb-4">{event.description}</p>
+            <div className="flex justify-between items-center">
+              <div className="text-gray-600">
+                {event.curr_capacity}/{event.max_capacity} attending
+              </div>
+              <div>
+                <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
+                  {event.category}
+                </span>
+                <a className="inline-block bg-green-500 text-white px-3 py-1 rounded text-sm ml-2 hover:bg-green-300" href={"/events/" + event.event_id}>
+                  See Event Attendees
+                </a>
+              </div>
             </div>
-            <div>
-              <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
-                {event.category}
-              </span>
-            </div>
-          </div>
         </div>
       ))}
     </div>
