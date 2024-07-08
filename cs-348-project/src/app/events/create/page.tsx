@@ -27,6 +27,10 @@ const CreateEventPage = () => {
   const [category, setCategory] = useState(formData.category)
   const [maxCap, setMaxCap] = useState("")
   const [desc, setDesc] = useState(formData.description)
+  const [city, setCity] = useState(formData.city)
+  const [address, setAddress] = useState(formData.address)
+  const [startTime, setStartTime] = useState(formData.start_time.toISOString().slice(0, 16))
+  const [endTime, setEndTime] = useState(formData.end_time.toISOString().slice(0, 16))
 
   const is_valid_input = () => {
     const {
@@ -76,6 +80,34 @@ const CreateEventPage = () => {
     else return true
   }
 
+  const validate_details_2 = () => { 
+    // verify start time, end time, address city
+    if (!city.trim() || !address.trim() || !startTime.trim() || !endTime.trim() || startTime >= endTime)
+    {
+      return false
+    }
+    else return true
+  }
+
+  const ready_data = () => { 
+    setFormData(
+      {
+        name: eventName,
+        city: city,
+        address: address,
+        curr_capacity: 0,
+        max_capacity: isNaN(parseInt(maxCap)) ? parseInt(maxCap) : 100,
+        // remember to replace this every time we generate new data, for testing purposes
+        owner_id: '29a6cd80-abaf-4964-a787-d05e245081b4',
+        category: category,
+        description: desc,
+        start_time: new Date(startTime),
+        end_time: new Date(endTime),
+        active: true,
+      }
+    )
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const name = e.target.name;
     let value: any = e.target.value;
@@ -96,23 +128,11 @@ const CreateEventPage = () => {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="bg-slate-100 p-8 rounded-lg shadow-lg w-full max-w-lg flex-row">
-        <div className="w-full flex flex-col gap-y-2">
-          <h1 className="font-bold text-2xl">What's your event about?</h1>
-          <div className="flex flex-row justify-evenly space-x-4">
-            <div className="w-full flex flex-col">
-              <div className={"border border-none rounded-md h-1 " + (isFirstPage ? " bg-blue-500" : "bg-gray-300")}></div>
-              <span className={(isFirstPage ? " text-blue-500" : "text-gray-300")}>Details</span>
-            </div>
-            <div className="w-full flex flex-col">
-              <div className={"border border-none rounded-md h-1 " + (!isFirstPage ? " bg-blue-500" : "bg-gray-300")}></div>
-              <span className={(!isFirstPage ? " text-blue-500" : "text-gray-300")}>Location and Time</span>
-            </div>
-          </div>
-        </div>
-        <form action={createEvent} className="space-y-2">
+  const render_content = () => {
+    if (isFirstPage) 
+    { 
+      return ( 
+        <div>
           { 
             // Fill event name field
           }
@@ -122,8 +142,12 @@ const CreateEventPage = () => {
               <input
                 type="text"
                 name="name"
+                value={eventName}
                 placeholder="Event name..."
-                onChange={(event) => {setEventName(event.target.value)}}
+                onChange={(event) => {
+                  setEventName(event.target.value);
+                  ready_data();
+                }}
                 required
                 className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((eventName.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
               />
@@ -134,27 +158,32 @@ const CreateEventPage = () => {
             }
             <div className="my-2 w-full flex flex-row justify-between space-x-2">
               <div>
-                <label className={"block font-bold" + ((category.trim() === "") ? " text-red-500" : "text-gray-700")}>Category</label>
+                <label className={"block font-bold " + ((category.trim() === "") ? " text-red-500" : "text-gray-700")}>Category</label>
                 <input
                   type="text"
                   name="category"
+                  value={category}
                   placeholder="Category..."
-                  onChange={(event) => {setCategory(event.target.value)}}
+                  onChange={(event) => {
+                    setCategory(event.target.value);
+                    ready_data();
+                  }}
                   required
                   className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((category.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
                 />
                 <p className={"text-sm text-red-500 italic " + ((category.trim() === "") ? "" : "hidden")}>*This field is required</p>
               </div>
               <div>
-                <label className={"block font-bold" + ((maxCap.trim() === "") ? " text-red-500" : "text-gray-700")}>Max capacity</label>
+                <label className={"block font-bold " + ((maxCap.trim() === "") ? " text-red-500" : "text-gray-700")}>Max capacity</label>
                 <input
                   type="text"
                   name="max_capacity"
+                  value={maxCap}
                   placeholder="Capacity..."
                   onChange={(event) => {
                     var num = parseInt(event.target.value);
                     (!isNaN(num)) ? setMaxCap(event.target.value) : setMaxCap("");
-                    console.log(num)
+                    ready_data();
                   }}
                   required
                   className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((maxCap.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
@@ -171,19 +200,138 @@ const CreateEventPage = () => {
               <textarea
                 name="description"
                 placeholder='Description...'
-                onChange={(event) => {setDesc(event.target.value)}}
+                value={desc}
+                onChange={(event) => {
+                  setDesc(event.target.value)
+                  ready_data();
+                }}
                 required
                 className="w-full p-2 h-24 border border-gray-300 rounded mt-1 bg-gray-100 overflow-y-auto resize-none"
               ></textarea>
             </div>
           </div>
-          <div className={"flex flex-row " + ((isFirstPage) ? "justify-end": "justify-between")} >
-            <button className={"text-base bg-slate-100 text-black border border-gray-400 px-5 py-2 rounded-lg font-medium " + ((isFirstPage) ? "hidden": "")}>Back</button>
+        </div>
+      )
+    }
+    else 
+    {
+      return (
+        <div>
+          {
+            // Fill event address and city
+          }
+          <div className="my-2 w-full flex flex-row justify-between space-x-2">
+            <div>
+              <label className={"block font-bold " + ((address.trim() === "") ? " text-red-500" : "text-gray-700")}>Address</label>
+              <input
+                type="text"
+                name="address"
+                value={address}
+                placeholder="Address..."
+                onChange={(event) => {
+                  setAddress(event.target.value);
+                  ready_data();
+                }}
+                required
+                className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((address.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+               />
+              <p className={"text-sm text-red-500 italic " + ((address.trim() === "") ? "" : "hidden")}>*This field is required</p>
+            </div>
+            <div>
+                <label className={"block font-bold" + ((city.trim() === "") ? " text-red-500" : "text-gray-700")}>City</label>
+                <input
+                  type="text"
+                  name="max_capacity"
+                  value={city}
+                  placeholder="City..."
+                  onChange={(event) => {
+                    setCity(event.target.value);
+                    ready_data();
+                  }}
+                  required
+                  className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((city.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                />
+                <p className={"text-sm text-red-500 italic " + ((city.trim() === "") ? "" : "hidden")}>*This field is required</p>
+              </div>
+            </div>
+          {
+            // Fill event start time and end time
+          }
+          <div className="my-2 w-full flex flex-col justify-between space-y-2">
+            <div>
+              <label className="block ">Start Time</label>
+              <input
+                type="datetime-local"
+                name="start_time"
+                value={startTime}
+                onChange={ (event) => { 
+                  // Update minEndTime when start_time changes
+                  setMinEndTime(new Date(event.target.value).toISOString().slice(0, 16));
+                  setStartTime(new Date(event.target.value).toISOString().slice(0, 16))
+                  ready_data();
+                }}
+                required
+                className={"w-full p-2 border border-gray-300 rounded mt-1 bg-gray-100" + ((startTime === endTime) ? " border-red-500 border-2" : " border-gray-300")}
+              />
+            </div>
+            <div>
+              <label className="block">End Time</label>
+              <input
+                type="datetime-local"
+                name="end_time"
+                value={endTime}
+                min={minEndTime} 
+                onChange={ (event) => {
+                  setEndTime(new Date(event.target.value).toISOString().slice(0, 16))
+                  ready_data();
+                }}
+                required
+                className={"w-full p-2 border border-gray-300 rounded mt-1 bg-gray-100" + ((startTime === endTime) ? " border-red-500 border-2" : " border-gray-300")}
+              />
+            </div>
+            <p className={"text-sm text-red-500 italic " + ((startTime === endTime) ? "" : "hidden")}>*Cannot start and end at exact same time</p>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="bg-slate-100 p-8 rounded-lg shadow-lg w-full max-w-lg flex-row">
+        <div className="w-full flex flex-col gap-y-2">
+          <h1 className="font-bold text-2xl">What's your event about?</h1>
+          <div className="flex flex-row justify-evenly space-x-4">
+            <div className="w-full flex flex-col">
+              <div className={"border border-none rounded-md h-1 " + (isFirstPage ? " bg-blue-500" : "bg-gray-300")}></div>
+              <span className={(isFirstPage ? " text-blue-500" : "text-gray-300")}>Details</span>
+            </div>
+            <div className="w-full flex flex-col">
+              <div className={"border border-none rounded-md h-1 " + (!isFirstPage ? " bg-blue-500" : "bg-gray-300")}></div>
+              <span className={(!isFirstPage ? " text-blue-500" : "text-gray-300")}>Location and Time</span>
+            </div>
+          </div>
+        </div>
+        <form className="space-y-2">
+          {
+            render_content()
+          }
+          <div className={"w-full flex flex-row mt-4 " + ((isFirstPage) ? "justify-end": "justify-between")}>
             <button onClick={ () => {
-              if (validate_details()) {
+              setIsFirstPage(!isFirstPage)
+            }} className={"hover:bg-slate-200 text-black font-bold py-2 px-6 border-b-4 border-gray-200 hover:border-gray-300 rounded transition ease-in-out " + ((isFirstPage) ? "hidden": "")}>Back</button>
+            <button type={ (isFirstPage ? "button" : "button") } onClick={ async () => {
+              if (isFirstPage && validate_details()) 
+              {
                 setIsFirstPage(!isFirstPage)
               }
-            }} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded transition ease-in-out">Next</button>
+              else if (!isFirstPage && validate_details() && validate_details_2())
+              {
+                // Set the form data to the fields supplied
+                console.log(formData);
+                await createEvent(formData);
+              }
+            }} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded transition ease-in-out " >{isFirstPage ? "Next" : "Submit" }</button>
           </div>
         </form>
       </div>
