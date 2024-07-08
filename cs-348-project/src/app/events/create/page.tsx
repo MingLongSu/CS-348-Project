@@ -150,6 +150,7 @@ const CreateEventPage = () => {
                 }}
                 required
                 className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((eventName.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                style={{ color:"black" }}
               />
               <p className={"text-sm text-red-500 italic " + ((eventName.trim() === "") ? "" : "hidden")}>*This field is required</p>
             </div>
@@ -170,6 +171,7 @@ const CreateEventPage = () => {
                   }}
                   required
                   className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((category.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                  style={{ color:"black" }}
                 />
                 <p className={"text-sm text-red-500 italic " + ((category.trim() === "") ? "" : "hidden")}>*This field is required</p>
               </div>
@@ -187,6 +189,7 @@ const CreateEventPage = () => {
                   }}
                   required
                   className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((maxCap.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                  style={{ color:"black" }}
                 />
                 <p className={"text-sm text-red-500 italic " + ((maxCap.trim() === "") ? "" : "hidden")}>*This field is required</p>
                 <p className={"text-sm text-red-500 italic " + ((maxCap.trim() === "") ? "" : "hidden")}>*Must be a number</p>
@@ -207,6 +210,7 @@ const CreateEventPage = () => {
                 }}
                 required
                 className="w-full p-2 h-24 border border-gray-300 rounded mt-1 bg-gray-100 overflow-y-auto resize-none"
+                style={{ color:"black" }}
               ></textarea>
             </div>
           </div>
@@ -234,6 +238,7 @@ const CreateEventPage = () => {
                 }}
                 required
                 className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((address.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                style={{ color:"black" }}
                />
               <p className={"text-sm text-red-500 italic " + ((address.trim() === "") ? "" : "hidden")}>*This field is required</p>
             </div>
@@ -250,6 +255,7 @@ const CreateEventPage = () => {
                   }}
                   required
                   className={"w-full p-2 border rounded mt-1 bg-gray-100 " + ((city.trim() === "") ? " border-red-500 border-2" : "border-gray-300")}
+                  style={{ color:"black" }}
                 />
                 <p className={"text-sm text-red-500 italic " + ((city.trim() === "") ? "" : "hidden")}>*This field is required</p>
               </div>
@@ -259,7 +265,7 @@ const CreateEventPage = () => {
           }
           <div className="my-2 w-full flex flex-col justify-between space-y-2">
             <div>
-              <label className="block ">Start Time</label>
+              <label className="block text-black">Start Time</label>
               <input
                 type="datetime-local"
                 name="start_time"
@@ -272,10 +278,11 @@ const CreateEventPage = () => {
                 }}
                 required
                 className={"w-full p-2 border border-gray-300 rounded mt-1 bg-gray-100" + ((startTime === endTime) ? " border-red-500 border-2" : " border-gray-300")}
+                style={{ color:"black" }}
               />
             </div>
             <div>
-              <label className="block">End Time</label>
+              <label className="block text-black">End Time</label>
               <input
                 type="datetime-local"
                 name="end_time"
@@ -287,6 +294,7 @@ const CreateEventPage = () => {
                 }}
                 required
                 className={"w-full p-2 border border-gray-300 rounded mt-1 bg-gray-100" + ((startTime === endTime) ? " border-red-500 border-2" : " border-gray-300")}
+                style={{ color:"black" }}
               />
             </div>
             <p className={"text-sm text-red-500 italic " + ((startTime === endTime) ? "" : "hidden")}>*Cannot start and end at exact same time</p>
@@ -300,7 +308,7 @@ const CreateEventPage = () => {
     <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="bg-slate-100 p-8 rounded-lg shadow-lg w-full max-w-lg flex-row">
         <div className="w-full flex flex-col gap-y-2">
-          <h1 className="font-bold text-2xl">What's your event about?</h1>
+          <h1 className="font-bold text-2xl text-black">What's your event about?</h1>
           <div className="flex flex-row justify-evenly space-x-4">
             <div className="w-full flex flex-col">
               <div className={"border border-none rounded-md h-1 " + (isFirstPage ? " bg-blue-500" : "bg-gray-300")}></div>
