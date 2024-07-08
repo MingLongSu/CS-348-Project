@@ -1,0 +1,6 @@
+event_id,name,city,address,start_time,end_time,curr_capacity,max_capacity,owner_id,category,description,active
+912c1c46-9a66-4849-bd56-5940b56fdeba,sure,Kitchener,33 Elm Street,2025-05-21 18:43:41,2025-05-22 00:43:41,0,100,5f2de4b3-eb75-4ea3-bec0-02e909364c2d,speech,#5db7cc,True
+9f7eb232-33e5-415e-a7b4-3a768076f510,key,Markham,29 Maple Street,2025-04-18 12:18:44,2025-04-18 13:18:44,0,100,29a6cd80-abaf-4964-a787-d05e245081b4,message,#91080d,True
+c80b5289-6e1c-4a5a-a882-baa5aacdf246,mention,Markham,20 Cedar Lane,2024-11-13 13:07:01,2024-11-13 17:07:01,0,100,8b9fa413-311b-468b-9810-c2c820a36d69,sport,#32d3be,True
+50b00bfb-7eb1-42af-b6df-220993aa0a18,sea,Vaughan,58 Birch Boulevard,2025-04-20 11:42:45,2025-04-20 13:42:45,0,100,8b9fa413-311b-468b-9810-c2c820a36d69,rest,#a5ffc9,True
+c2e61f72-43c7-4c99-8230-ac7856593a12,work,London,45 Elm Street,2024-12-07 03:04:53,2024-12-07 07:04:53,0,100,29a6cd80-abaf-4964-a787-d05e245081b4,choose,#5c229b,True

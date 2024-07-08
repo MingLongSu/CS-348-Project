@@ -6,6 +6,39 @@ from datetime import datetime, timedelta
 # Initialize Faker
 fake = Faker()
 
+# Initialize fixed locations
+fixed_cities = [
+    "Toronto",
+    "Ottawa",
+    "Mississauga",
+    "Brampton",
+    "Hamilton",
+    "London",
+    "Markham",
+    "Vaughan",
+    "Kitchener",
+    "Windsor"
+]
+
+fixed_street_names = [
+    "Maple Street",
+    "Oak Avenue",
+    "Pine Road",
+    "Cedar Lane",
+    "Elm Street",
+    "Birch Boulevard",
+    "Willow Way",
+    "Ash Court",
+    "Cherry Drive",
+    "Walnut Street"
+]
+
+fixed_descriptions = [
+    "Join us for the annual Community Charity Run on August 15th, where participants of all ages come together to support local nonprofits. The event will feature a 5K run/walk, live music, and food trucks. All proceeds will benefit community outreach programs.",
+    "Experience a culinary adventure at the Summer Food Festival on July 20th, featuring diverse dishes from around the world. Enjoy live cooking demonstrations, sample gourmet treats, and listen to local bands. Perfect for food enthusiasts and families alike!",
+    "Bring your blankets and enjoy a magical evening under the stars at our Outdoor Movie Night on September 10th. The featured film is a family-friendly classic, and concessions will be available. Gates open at 7 PM, and the movie starts at dusk."
+]
+
 # Number of fake records to generate
 num_users = 5
 num_events = 5
@@ -33,9 +66,9 @@ def generate_fake_events(num_events, user_ids):
     for _ in range(num_events):
         start_time = fake.date_time_between(start_date='+1m', end_date='+1y')
         end_time = start_time + timedelta(hours=fake.random_int(min=1, max=8))
-        city_name = fake.color()
+        city_name = fixed_cities[random.randint(0, 9)]
         street_number = random.randint(1, 100)
-        street_name = fake.color()
+        street_name = fixed_street_names[random.randint(0, 9)]
         event = {
             'event_id': str(uuid.uuid4()),
             'name': fake.word(),
@@ -47,7 +80,7 @@ def generate_fake_events(num_events, user_ids):
             'max_capacity': 100,
             'owner_id': fake.random_element(elements=user_ids),
             'category': fake.word(),
-            'description': fake.color(),
+            'description': fake.random_element(elements=fixed_descriptions), # DESCRIPTION
             'active': True
         }
         events.append(event)

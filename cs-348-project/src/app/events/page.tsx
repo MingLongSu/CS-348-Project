@@ -16,7 +16,7 @@ const EventsPage = async () => {
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
         >
           <h3 className="text-xl text-gray-600 font-bold mb-2">{event.name}</h3>
-          <p className="text-gray-600 mb-1">{event.location}</p>
+          <p className="text-gray-600 mb-1">{event.address}, {event.city}</p>
           <p className="text-gray-600 mb-4">
             {event.start_time.toLocaleDateString()} - {event.end_time.toLocaleDateString()}
           </p>

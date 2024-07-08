@@ -1,7 +1,8 @@
 export interface IEvent {
     event_id: string;
     name: string;
-    location: string;
+    city: string;
+    address: string; 
     curr_capacity: number;
     max_capacity: number;
     owner_id: string;
@@ -15,7 +16,8 @@ export interface IEvent {
 
 export interface ICreateEvent {
   name: string;
-  location: string;
+  city: string;
+  address: string; 
   curr_capacity: number;
   max_capacity: number;
   owner_id: string;
