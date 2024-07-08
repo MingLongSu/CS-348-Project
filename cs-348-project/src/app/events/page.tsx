@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import {IEvent} from '@/app/lib/events/event';
 import listActiveEvents from '@/app/lib/events/listEvent';
+import updateEventsStatus from '@/app/lib/events/updateEventStatus';
 
 const EventsPage = async () => {
+  const response = await updateEventsStatus();
   const events : IEvent[] = await listActiveEvents();
   console.log(events.length)
   return (
