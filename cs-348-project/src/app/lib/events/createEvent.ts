@@ -24,14 +24,15 @@ const createEvent = async (formData : FormData) : Promise<void> => {
         end_time,
         active
     ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
     );
 `;
 
 const values = [
     randomUUID(),
     formData.get('name'),
-    formData.get('location'),
+    formData.get('city'),
+    formData.get('address'),
     formData.get('curr_capacity'),
     formData.get('max_capacity'),
     formData.get('owner_id'),
