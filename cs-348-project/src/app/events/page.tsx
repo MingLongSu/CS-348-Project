@@ -1,14 +1,13 @@
 "use server"
 
-import { useEffect, useState } from 'react';
 import {IEvent} from '@/app/lib/events/event';
 import listActiveEvents from '@/app/lib/events/listEvent';
 import updateEventsStatus from '@/app/lib/events/updateEventStatus';
+import EventDetailsModal from "@/app/events/EventDetailsModal";
 
 const EventsPage = async () => {
-  const response = await updateEventsStatus();
+  await updateEventsStatus();
   const events : IEvent[] = await listActiveEvents();
-  console.log(events.length)
   return (
     <div className="container mx-auto p-4">
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -31,9 +30,7 @@ const EventsPage = async () => {
                 <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
                   {event.category}
                 </span>
-                <a className="inline-block bg-green-500 text-white px-3 py-1 rounded text-sm ml-2 hover:bg-green-300" href={"/events/" + event.event_id}>
-                  See Event Attendees
-                </a>
+                <EventDetailsModal event_id={event.event_id}/>
               </div>
             </div>
         </div>
