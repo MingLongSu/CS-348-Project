@@ -74,6 +74,16 @@ def generate_fake_attendees(event_ids, user_ids):
         count += 1
     return attendees
 
+# Function to update event capacities based on attendees
+def update_event_capacity(events, attendees):
+    event_capacity = {event['event_id']: 0 for event in events}
+    
+    for attendee in attendees:
+        event_capacity[attendee['event_id']] += 1
+    
+    for event in events:
+        event['curr_capacity'] = event_capacity[event['event_id']]
+
 # Function to generate a list of fake checkins 
 def generate_fake_checkins(attendees):
     checkins = []
@@ -112,6 +122,13 @@ user_ids = [user['user_id'] for user in users if user['user_id'] not in banned_u
 # Generate fake events
 events = generate_fake_events(num_events, user_ids)
 
+# Generate Fake Attendees
+event_ids__owners = [(event['event_id'], event['owner_id']) for event in events]
+attendees = generate_fake_attendees(event_ids__owners, user_ids)
+
+# Update event capacities
+update_event_capacity(events, attendees)
+
 # Write events to events.txt
 with open('events.txt', 'w') as file:
     file.write('event_id,name,city,address,start_time,end_time,curr_capacity,max_capacity,owner_id,category,description,active\n')
@@ -119,10 +136,6 @@ with open('events.txt', 'w') as file:
         file.write(f"{event['event_id']},{event['name']},{event['city']},{event['address']},{event['start_time']},{event['end_time']},{event['curr_capacity']},{event['max_capacity']},{event['owner_id']},{event['category']},{event['description']},{event['active']}\n")
 
 print(f'{num_events} fake events written to events.txt')
-
-# Generate Fake Attendees
-event_ids__owners = [(event['event_id'], event['owner_id']) for event in events]
-attendees = generate_fake_attendees(event_ids__owners, user_ids)
 
 # Write attendees to attendees.txt
 with open('attendees.txt', 'w') as file:

@@ -4,3 +4,4 @@ user_id,first_name,last_name,age,gender,strikes
 4a2cd996-aa6b-4378-af59-6167abe86b06,Jimmy,Anderson,31,M,2
 1c80e4e4-450f-4645-b029-c0a400f792a2,Anthony,Jones,67,M,1
 9b5ee7b9-7ca4-4a51-b22b-e4b933a3fe2b,Elizabeth,Steele,86,M,0
+29a6cd80-abaf-4964-a787-d05e245081b4,Tiffany,Adams,73,F,0
