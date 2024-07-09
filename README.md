@@ -16,6 +16,30 @@
 4. Navigate to the "cs-348-project" directory
 5. Use npm run dev to run the project locally
 
+## Production Data
+To generate production data for the application, use the prod_generate_data.py file found in the prod_data folder. The data can then be loaded into the database using the populate_tables.sql script mentionned in the Database Setup Instructions.
+
+**NOTE: PRODUCTION DATA HAS ALREADY BEEN GENERATED AND CAN BE FOUND IN THE SAME FOLDER. GENERATION IS NOT REQUIRED**
+
+## Features Implemented
+1. Create Event Feature 
+    Files: \cs-348-project\src\app\events\create\page.tsx
+           \cs-348-project\src\app\lib\events\createEvent.ts
+           \cs-348-project\src\app\lib\events\event.ts
+2. Display All Events Feature ()
+    Files: \cs-348-project\src\app\lib\events\listEvent.ts
+           \cs-348-project\src\app\events\page.tsx
+           \cs-348-project\src\app\lib\events\event.ts
+3. Update active tag on events ()
+    Files: \cs-348-project\src\app\lib\events\updateEventStatus.ts
+           \cs-348-project\src\app\events\page.tsx
+           \cs-348-project\src\app\lib\events\event.ts
+4. List User details for those that have signed up to a particular event ()
+    Files: \cs-348-project\src\app\lib\users\user.ts
+           \cs-348-project\src\app\lib\events\getAttendees.ts
+           \cs-348-project\src\app\events\EventDetailsModal.tsx
+
 ## Additional Setup Notes
 1. DO NOT REGENERATE OUR SAMPLE DATA OR THE SAMPLE TESTS AND EXPECTED OUTPUT WILL BE DIFFERENT THAN WHAT WE HAVE WRITTEN OUT
-2. Ensure to change certain details in the .env file and populate_tables.sql
+2. DO NOT REGENERATE OUR PRODUCTION DATA OR THE PRODUCTION TESTS AND EXPECTED OUTPUT WILL BE DIFFERENT THAN WHAT WE HAVE WRITTEN OUT
+3. Ensure to change certain details in the .env file and populate_tables.sql

@@ -28,3 +28,7 @@ AFTER UPDATE ON Users
 FOR EACH ROW
 WHEN (NEW.strikes = 3)
 EXECUTE FUNCTION user_strikes_update_function();
+
+UPDATE Users 
+SET strikes = 3 WHERE user_id = '4a2cd996-aa6b-4378-af59-6167abe86b06'
+;

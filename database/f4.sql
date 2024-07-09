@@ -8,6 +8,5 @@ LEFT JOIN Attending a
 ON u.user_id = a.user_id
 LEFT JOIN Events e
 ON a.event_id = e.event_id
-WHERE e.event_id = '704ba16d-507b-4f96-a0ec-2a08146910a0'
+WHERE e.event_id = '998fe10f-5754-4161-b97c-c574d4046ee1'
 ;
-
