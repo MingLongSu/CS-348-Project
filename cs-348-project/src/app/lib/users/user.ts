@@ -3,6 +3,6 @@ export interface Iuser {
     last_name: string, 
     age: number, 
     gender: string, 
-    strikes: string, 
+    strikes: number, 
     user_id: string
   }

@@ -5,14 +5,15 @@ import createEvent from '@/app/lib/events/createEvent';
 import React from 'react';
 
 const CreateEventPage = () => {
+  let user_id = localStorage.getItem('userId') || "29a6cd80-abaf-4964-a787-d05e245081b4";
+ 
   const [formData, setFormData] = useState<ICreateEvent>({
     name: '',
     city: '',
     address: '',
     curr_capacity: 0,
     max_capacity: 100,
-    // remember to replace this every time we generate new data, for testing purposes
-    owner_id: '29a6cd80-abaf-4964-a787-d05e245081b4',
+    owner_id: user_id,
     category: '',
     description: '',
     start_time: new Date(),
@@ -98,7 +99,7 @@ const CreateEventPage = () => {
         curr_capacity: 0,
         max_capacity: isNaN(parseInt(maxCap)) ? parseInt(maxCap) : 100,
         // remember to replace this every time we generate new data, for testing purposes
-        owner_id: '29a6cd80-abaf-4964-a787-d05e245081b4',
+        owner_id: user_id,
         category: category,
         description: desc,
         start_time: new Date(startTime),
