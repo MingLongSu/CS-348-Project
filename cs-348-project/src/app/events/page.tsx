@@ -26,7 +26,7 @@ const EventsPage = async () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {events.map((event) => (
                 <div
-                  key={event.event_id}
+                  key={event.event_id} 
                   className="bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
                 >
                   <h3 className="text-xl text-white font-bold mb-2">{event.name}</h3>
@@ -43,7 +43,7 @@ const EventsPage = async () => {
                       <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
                         {event.category}
                       </span>
-                      <EventDetailsModal event_id={event.event_id} />
+                      <EventDetailsModal event_id={event.event_id} owner_id={event.owner_id} user_id={userId} />
                     </div>
                   </div>
                 </div>
