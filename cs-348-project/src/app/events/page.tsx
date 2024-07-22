@@ -58,12 +58,20 @@ const EventsPage = async () => {
             </Link>
           </>
         ) : (
-          <div className="flex justify-center items-center min-h-screen">
-            <Link legacyBehavior href="/signup">
-              <a className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
-                Sign Up Now
-              </a>
-            </Link>
+          <div className="flex flex-col items-center justify-center min-h-screen text-center">
+            <h2 className="text-3xl font-bold mb-8">Find local events in your area</h2>
+            <div className="space-x-4">
+              <Link legacyBehavior href="/signup">
+                <a className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                  Sign Up
+                </a>
+              </Link>
+              <Link legacyBehavior href="/login">
+                <a className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                  Login
+                </a>
+              </Link>
+            </div>
           </div>
         )}
       </div>

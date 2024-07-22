@@ -46,3 +46,10 @@ CREATE TABLE IF NOT EXISTS BanList (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
+CREATE TABLE IF NOT EXISTS Credentials (
+  username VARCHAR(64) PRIMARY KEY,
+  password VARCHAR(64),
+  user_id UUID,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+); 
+

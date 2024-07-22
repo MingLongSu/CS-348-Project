@@ -1,11 +1,13 @@
 "use client"
 import { useState } from 'react';
-import { Iuser } from '@/app/lib/users/user';
+import { ICreateUser } from '@/app/lib/users/user';
 import { v4 as uuidv4 } from 'uuid';
 import createUser from '@/app/lib/users/createUser';
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState<Iuser>({
+  const [formData, setFormData] = useState<ICreateUser>({
+    username: "",
+    password: "",
     first_name: "", 
     last_name: "", 
     age: 0, 
@@ -39,9 +41,9 @@ const SignupPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
+      await createUser(formData);
       localStorage.setItem('userId', formData.user_id);
       localStorage.setItem('userName', formData.first_name);
-      await createUser(formData);
     }
   };
 
@@ -52,6 +54,32 @@ const SignupPage = () => {
           <h1 className="font-bold text-2xl text-black">Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-2">
+        <div className="mb-2">
+            <label className="block font-bold text-gray-700">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded mt-1 bg-gray-100"
+              style={{ color: "black" }}
+            />
+            {errors.username && <p className="text-sm text-red-500">{errors.username}</p>}
+          </div>
+          <div className="mb-2">
+            <label className="block font-bold text-gray-700">Password</label>
+            <input
+              type="text"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded mt-1 bg-gray-100"
+              style={{ color: "black" }}
+            />
+            {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+          </div>
           <div className="mb-2">
             <label className="block font-bold text-gray-700">First Name</label>
             <input
