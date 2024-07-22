@@ -6,7 +6,7 @@ import React from 'react';
 
 const CreateEventPage = () => {
   let user_id = localStorage.getItem('userId') || "29a6cd80-abaf-4964-a787-d05e245081b4";
- 
+  
   const [formData, setFormData] = useState<ICreateEvent>({
     name: '',
     city: '',
@@ -97,7 +97,7 @@ const CreateEventPage = () => {
         city: city,
         address: address,
         curr_capacity: 0,
-        max_capacity: isNaN(parseInt(maxCap)) ? parseInt(maxCap) : 100,
+        max_capacity: isNaN(parseInt(maxCap)) ? 100 : parseInt(maxCap),
         // remember to replace this every time we generate new data, for testing purposes
         owner_id: user_id,
         category: category,
@@ -321,14 +321,14 @@ const CreateEventPage = () => {
             </div>
           </div>
         </div>
-        <form className="space-y-2">
+        <form className="space-y-2" method='post'>
           {
             render_content()
           }
           <div className={"w-full flex flex-row mt-4 " + ((isFirstPage) ? "justify-end": "justify-between")}>
             <button onClick={ () => {
               setIsFirstPage(!isFirstPage)
-            }} className={"hover:bg-slate-200 text-black font-bold py-2 px-6 border-b-4 border-gray-200 hover:border-gray-300 rounded transition ease-in-out " + ((isFirstPage) ? "hidden": "")}>Back</button>
+            }} type='button' className={"hover:bg-slate-200 text-black font-bold py-2 px-6 border-b-4 border-gray-200 hover:border-gray-300 rounded transition ease-in-out " + ((isFirstPage) ? "hidden": "")}>Back</button>
             <button type={ (isFirstPage ? "button" : "button") } onClick={ async () => {
               if (isFirstPage && validate_details()) 
               {
@@ -336,6 +336,7 @@ const CreateEventPage = () => {
               }
               else if (!isFirstPage && validate_details() && validate_details_2())
               {
+                console.log(validate_details_2())
                 // Set the form data to the fields supplied
                 console.log(formData);
                 await createEvent(formData);
