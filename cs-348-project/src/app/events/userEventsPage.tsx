@@ -63,7 +63,7 @@ const UserEventsPage = async () => {
                   <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
                     {event.category}
                   </span>
-                  <EventDetailsModal event_id={event.event_id} />
+                  <EventDetailsModal event_id={event.event_id} owner_id={event.owner_id} user_id={userId} />
                 </div>
               </div>
             </div>
