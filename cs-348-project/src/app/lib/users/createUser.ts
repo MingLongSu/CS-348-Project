@@ -50,8 +50,8 @@ const createUser = async (formData : ICreateUser) : Promise<void> => {
     console.log('User inserted successfully');
     cookies().set("userId", formData.user_id);
     cookies().set("userName", formData.first_name);
-    revalidatePath('/events');
-    redirect('/events')
+    revalidatePath('/');
+    redirect('/')
 }
 
 export default createUser;

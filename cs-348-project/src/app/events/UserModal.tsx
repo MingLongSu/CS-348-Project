@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { revalidateEvents } from '../lib/events/revalidateEvents';
 
 const UserModal = ({userName}: { userName: string }) => {
   const router = useRouter();
@@ -15,8 +16,9 @@ const UserModal = ({userName}: { userName: string }) => {
         document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         localStorage.clear();
-        router.push('/');
+        revalidateEvents();
     };
+  
 
   return (
     <div className="relative">

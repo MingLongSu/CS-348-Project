@@ -41,7 +41,7 @@ const LoginPage = () => {
     } else {
         localStorage.setItem('userId', res[0].user_id);
         localStorage.setItem('userName', res[0].first_name);
-        router.push("/events")
+        router.push("/")
       }
     }
   };

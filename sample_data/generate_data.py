@@ -93,8 +93,25 @@ def generate_fake_checkins(attendees):
 
     return checkins
 
+# Function to generate fake credentials for all users
+def generate_fake_credentials(users):
+    credentials = []
+    for user in users:
+        username = fake.word()
+        password = fake.credit_card_number()
+        credential = {
+            'username': username,
+            'password': password,
+            'user_id': user['user_id']
+        }
+        credentials.append(credential)
+    return credentials
+
 # Generate fake users
 users = generate_fake_users(num_users)
+
+# Generate fake credentials
+credentials = generate_fake_credentials(users)
 
 # Write users to users.txt
 with open('users.txt', 'w') as file:
@@ -103,6 +120,14 @@ with open('users.txt', 'w') as file:
         file.write(f"{user['user_id']},{user['first_name']},{user['last_name']},{user['age']},{user['gender']},{user['strikes']}\n")
 
 print(f'{num_users} fake users written to users.txt')
+
+# Write user credentials to credentials.txt
+with open('credentials.txt', 'w') as file:
+    file.write('username,password,user_id\n')
+    for credential in credentials:
+        file.write(f"{credential['username']},{credential['password']},{credential['user_id']}\n")
+
+print(f'{num_users} fake credentials written to credentials.txt')
 
 # Select users with 3 strikes
 banned_users = [user for user in users if user['strikes'] == 3]

@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS Users, Events, Attending, CheckIn, BanList;
+DROP TABLE IF EXISTS Users, Events, Attending, CheckIn, BanList, Credentials;

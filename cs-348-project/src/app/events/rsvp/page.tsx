@@ -1,21 +1,22 @@
 "use server"
 
 import { IEvent } from '@/app/lib/events/event';
-import { IUser } from '../lib/events/user';
-import listUserEvents from '@/app/lib/events/listUserEvents';
-import listUserDetails from '../lib/events/listUserInfo';
+import { IUser } from '../../lib/events/user';
+import listRSVPEvents from '@/app/lib/events/listUserAttendingEvents';
+import listUserDetails from '@/app/lib/events/listUserInfo';
 import EventDetailsModal from "@/app/events/EventDetailsModal";
 import UserModal from "@/app/events/UserModal";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import UnRsvpButton from '../UnRsvpButton';
 
-const UserEventsPage = async () => {
+const UserRSVPPage = async () => {
   const userId = cookies().get("userId")?.value;
   const userName = cookies().get("userName")?.value;
 
   if (!userId) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white p-4">
+    <div className="min-h-screen bg-gray-900 text-white p-4">
         <div className="container mx-auto relative">
             <div className="flex flex-col items-center justify-center min-h-screen text-center">
                 <h2 className="text-3xl font-bold mb-8">Find local events in your area</h2>
@@ -34,28 +35,29 @@ const UserEventsPage = async () => {
             </div>
         </div>
     </div>
+
     );
   }
 
-  const events: IEvent[] = await listUserEvents(userId);
+  const events: IEvent[] = await listRSVPEvents(userId);
   const usersInfo: IUser[] = await listUserDetails(userId);
   const userInfo = usersInfo[0]; 
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4">
       <div className="container mx-auto relative">
-        <h1 className="text-4xl font-bold mb-8 text-center">My Events</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center">My RSVPed Events</h1>
         <div className="absolute top-4 right-4">
           <UserModal userName={userName} />
         </div>
-          <div className="absolute top-4 left-4">
-          <Link legacyBehavior href="/">
+        <div className="absolute top-4 left-4">
+            <Link legacyBehavior href="/">
             <a className="hover:bg-blue-600 transition-colors duration-300">
-              <svg className="w-[35px] h-[35px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <svg className="w-[35px] h-[35px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
-              </svg>
+                </svg>
             </a>
-          </Link>
+            </Link>
         </div>
         <div className="bg-gray-800 rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-3xl font-bold mb-2">{userInfo.first_name} {userInfo.last_name}</h2>
@@ -70,6 +72,7 @@ const UserEventsPage = async () => {
               key={event.event_id}
               className="bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
             >
+              <UnRsvpButton event_id={event.event_id} user_id={userId} />
               <h3 className="text-xl text-white font-bold mb-2">{event.name}</h3>
               <p className="text-gray-400 mb-1">{event.address}, {event.city}</p>
               <p className="text-gray-400 mb-4">
@@ -102,4 +105,4 @@ const UserEventsPage = async () => {
   );
 };
 
-export default UserEventsPage;
+export default UserRSVPPage;

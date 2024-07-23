@@ -3,9 +3,34 @@ import { useState } from 'react';
 import { ICreateEvent } from '@/app/lib/events/event';
 import createEvent from '@/app/lib/events/createEvent';
 import React from 'react';
+import Link from 'next/link';
 
 const CreateEventPage = () => {
   let user_id = localStorage.getItem('userId') || "29a6cd80-abaf-4964-a787-d05e245081b4";
+
+  if (user_id == "29a6cd80-abaf-4964-a787-d05e245081b4") {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white p-4">
+        <div className="container mx-auto relative">
+            <div className="flex flex-col items-center justify-center min-h-screen text-center">
+                <h2 className="text-3xl font-bold mb-8">Find local events in your area</h2>
+                <div className="space-x-4">
+                <Link legacyBehavior href="/signup">
+                    <a className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                    Sign Up
+                    </a>
+                </Link>
+                <Link legacyBehavior href="/login">
+                    <a className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                    Login
+                    </a>
+                </Link>
+                </div>
+            </div>
+        </div>
+    </div>
+    );
+  }
   
   const [formData, setFormData] = useState<ICreateEvent>({
     name: '',
@@ -134,6 +159,15 @@ const CreateEventPage = () => {
     { 
       return ( 
         <div>
+          <div className="absolute top-4 left-4">
+            <Link legacyBehavior href="/">
+              <a className="hover:bg-blue-600 transition-colors duration-300">
+                <svg className="w-[35px] h-[35px] text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                </svg>
+              </a>
+            </Link>
+          </div>
           { 
             // Fill event name field
           }
@@ -222,6 +256,15 @@ const CreateEventPage = () => {
     {
       return (
         <div>
+          <div className="absolute top-4 left-4">
+            <Link legacyBehavior href="/">
+              <a className="hover:bg-blue-600 transition-colors duration-300">
+                <svg className="w-[35px] h-[35px] text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                </svg>
+              </a>
+            </Link>
+          </div>
           {
             // Fill event address and city
           }

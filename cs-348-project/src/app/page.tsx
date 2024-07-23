@@ -17,6 +17,10 @@ export default function Home() {
     router.push('/events/user');
   };
 
+  const handleViewRSVPEvents = () => {
+    router.push('/events/rsvp');
+  };
+
   return (
     <div className='centeredContainer'>
       <p className='centeredText'>
@@ -34,6 +38,12 @@ export default function Home() {
           onClick={handleViewMyEvents}
         >
           View My Events
+        </button>
+        <button 
+          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
+          onClick={handleViewRSVPEvents}
+        >
+          View RSVPed Events
         </button>
         <button 
           className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
