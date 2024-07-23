@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className='centeredContainer'>
+    <div className='centeredContainer bg-black'>
       <p className='centeredText'>
         WELCOME TO eVENT.io
       </p>
