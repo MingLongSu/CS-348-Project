@@ -1,13 +1,16 @@
 'use client'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Iuser } from "@/app/lib/users/user";
+import { IAttendee, Iuser } from "@/app/lib/users/user";
 import getAttendees from "@/app/lib/events/getAttendees";
 import removeAttendee from '../lib/events/removeAttendee';
+import { FaTrash } from "react-icons/fa";
+import { CiCircleCheck } from "react-icons/ci";
+import { checkInAttendee } from '../lib/events/checkInAtendee';
 
 export default function EventDetailsModal({ event_id, owner_id, user_id }: { event_id: string, owner_id: string, user_id: string }) {
     let [isOpen, setIsOpen] = useState(false)
-    let [attending, setAttending] = useState<Iuser[]>([])
+    let [attending, setAttending] = useState<IAttendee[]>([])
     let [isOwner, setIsOwner] = useState(owner_id == user_id)
     let [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     let [selectedAttendee, setSelectedAttendee] = useState<Iuser | null>(null)
@@ -21,7 +24,7 @@ export default function EventDetailsModal({ event_id, owner_id, user_id }: { eve
         setIsOpen(false)
     }
 
-    function openDeleteConfirm(attendee: Iuser) {
+    function openDeleteConfirm(attendee: IAttendee) {
         setSelectedAttendee(attendee)
         setDeleteConfirmOpen(true)
     }
@@ -29,6 +32,11 @@ export default function EventDetailsModal({ event_id, owner_id, user_id }: { eve
     function closeDeleteConfirm() {
         setDeleteConfirmOpen(false)
         setSelectedAttendee(null)
+    }
+
+    async function checkIn(attendee: IAttendee) {
+        await checkInAttendee(event_id, attendee.user_id)
+        setAttending(await getAttendees(event_id))
     }
 
     async function handleDelete() {
@@ -93,17 +101,37 @@ export default function EventDetailsModal({ event_id, owner_id, user_id }: { eve
                                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Last Name</th>
                                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Age</th>
                                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Gender</th>
+                                                        {isOwner && <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Checked In</th>}
+                                                        {isOwner && <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Check In</th>}
+                                                        {isOwner && <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-700">Delete</th>}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {attending.map((attendee, index) => (
                                                         <tr key={index}
-                                                            className={`text-center transition-colors duration-300 ${isOwner ? "hover:bg-red-500 cursor-pointer" : "hover:bg-gray-50"}`}
-                                                            onClick={() => isOwner && openDeleteConfirm(attendee)}>
+                                                            className="text-center transition-colors duration-300 hover:bg-gray-50">                                                            
                                                             <td className="py-2 px-4 border-b border-gray-200 text-gray-800">{attendee.first_name}</td>
                                                             <td className="py-2 px-4 border-b border-gray-200 text-gray-800">{attendee.last_name}</td>
                                                             <td className="py-2 px-4 border-b border-gray-200 text-gray-800">{attendee.age}</td>
                                                             <td className="py-2 px-4 border-b border-gray-200 text-gray-800">{attendee.gender}</td>
+                                                            {isOwner && <td className="py-2 px-4 border-b border-gray-200 text-gray-800">{attendee.is_checked_in ? "Yes" : "No"}</td>}
+                                                            {isOwner && <td className="py-2 px-4 border-b border-gray-200 text-gray-800">
+                                                                <button
+                                                                    onClick={() => checkIn(attendee)}
+                                                                    disabled={attendee.is_checked_in}
+                                                                    className={`text-gray-500 ${attendee.is_checked_in ? "" : " hover:text-green-500"} transition-colors duration-300`}
+                                                                >
+                                                                    <CiCircleCheck />
+                                                                </button>
+                                                                </td>}
+                                                            {isOwner && <td className="py-2 px-4 border-b border-gray-200 text-gray-800">
+                                                                <button
+                                                                    onClick={() => openDeleteConfirm(attendee)}
+                                                                    className="text-gray-500 hover:text-red-500 transition-colors duration-300"
+                                                                >
+                                                                    <FaTrash />
+                                                                </button>                                                                
+                                                            </td>}
                                                         </tr>
                                                     ))}
                                                 </tbody>

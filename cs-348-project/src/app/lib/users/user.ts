@@ -7,6 +7,9 @@ export interface Iuser {
     user_id: string
   }
 
+export interface IAttendee extends Iuser {
+  is_checked_in: boolean;
+}
   export interface ICreateUser {
     first_name: string, 
     last_name: string, 
