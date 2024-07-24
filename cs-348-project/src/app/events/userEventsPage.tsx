@@ -9,6 +9,9 @@ import UserModal from "@/app/events/UserModal";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import checkBanList from '../lib/events/checkBanList';
+import { closeEvent } from '../lib/events/closeEvent';
+import NoShowButton from './CloseEventButton';
+import CloseEventButton from './CloseEventButton';
 
 const UserEventsPage = async () => {
   const userId = cookies().get("userId")?.value;
@@ -96,6 +99,7 @@ const UserEventsPage = async () => {
                     {event.category}
                   </span>
                   <EventDetailsModal event_id={event.event_id} owner_id={event.owner_id} user_id={userId} />
+                  <CloseEventButton event_id={event.event_id} />
                 </div>
               </div>
             </div>

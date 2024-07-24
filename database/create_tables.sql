@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS Events (
     FOREIGN KEY (owner_id) REFERENCES Users(user_id)
 );
 
+CREATE INDEX idx_events_name ON Events(name);
+
 CREATE TABLE IF NOT EXISTS Attending (
     event_id UUID,
     user_id UUID,

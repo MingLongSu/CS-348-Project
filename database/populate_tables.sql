@@ -1,29 +1,11 @@
-COPY Users (user_id, first_name, last_name, age, gender, strikes)
-    FROM 'C:\dev\348-copy\sample_data\users.txt'
-    DELIMITER ','
-    HEADER;
+\copy Users (user_id, first_name, last_name, age, gender, strikes) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/users.txt' DELIMITER ',' CSV HEADER;
 
-COPY Events (event_id, name, city, address, start_time, end_time, curr_capacity, max_capacity, owner_id, category, description, active)
-    FROM 'C:\dev\348-copy\sample_data\events.txt'
-    DELIMITER ','
-    HEADER;
+\copy Events (event_id, name, city, address, start_time, end_time, curr_capacity, max_capacity, owner_id, category, description, active) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/events.txt' DELIMITER ',' CSV HEADER;
 
-COPY Attending (event_id, user_id)
-    FROM 'C:\dev\348-copy\sample_data\attendees.txt'
-    DELIMITER ','
-    HEADER;
+\copy Attending (event_id, user_id) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/attendees.txt' DELIMITER ',' CSV HEADER;
 
-COPY CheckIn (event_id, user_id)
-    FROM 'C:\dev\348-copy\sample_data\check-in.txt'
-    DELIMITER ','
-    HEADER;
+\copy CheckIn (event_id, user_id) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/check-in.txt' DELIMITER ',' CSV HEADER;
 
-COPY BanList (user_id)
-    FROM 'C:\dev\348-copy\sample_data\banlist.txt'
-    DELIMITER ','
-    HEADER;
+\copy BanList (user_id) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/banlist.txt' DELIMITER ',' CSV HEADER;
 
-COPY Credentials(username, password, user_id)
-    FROM 'C:\dev\348-copy\sample_data\credentials.txt'
-    DELIMITER ','
-    HEADER;
+\copy Credentials (username, password, user_id) FROM '/Users/ernestwong/Documents/CS-348-Project/sample_data/credentials.txt' DELIMITER ',' CSV HEADER;

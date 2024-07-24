@@ -12,12 +12,14 @@ import { IUser } from '../lib/events/user';
 import checkBanList from '../lib/events/checkBanList';
 import { listActiveUNRSVPEDEvents } from '@/app/lib/events/listEventsNotAttending';
 import {NextPageButton, PrevPageButton} from '@/app/events/ChangePageButton';
+import Search from './search';
 
-const EventsPage = async () => {
+const EventsPage = async ({searchParams}: {searchParams: {query: string}}) => {
   await updateEventsStatus();
+  const query = searchParams.query || "";
   const userId = cookies().get("userId")?.value;
   const userName = cookies().get("userName")?.value;
-  const events: IEvent[] = await listActiveUNRSVPEDEvents(userId);
+  const events: IEvent[] = await listActiveUNRSVPEDEvents(userId, query);
   const banned: Boolean = await checkBanList(userId);
   
   if (banned)
@@ -47,7 +49,10 @@ const EventsPage = async () => {
                 </a>
               </Link>
             </div>
+            <Search placeholder="Search for events. must be exact match to title" />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              
               {events.map((event) => (
                 <div
                   key={event.event_id} 
