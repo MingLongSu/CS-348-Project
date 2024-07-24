@@ -9,6 +9,7 @@ import UserModal from "@/app/events/UserModal";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import UnRsvpButton from '../UnRsvpButton';
+import checkBanList from '@/app/lib/events/checkBanList';
 
 const UserRSVPPage = async () => {
   const userId = cookies().get("userId")?.value;
@@ -36,6 +37,16 @@ const UserRSVPPage = async () => {
         </div>
     </div>
 
+    );
+  }
+
+  const banned: Boolean = await checkBanList(userId);
+  if (banned)
+  {
+    return (
+      <div className="min-h-screen bg-red-500 text-white flex items-center justify-center">
+        <h1 className="text-4xl font-bold">You have more than 3 strikes!</h1>
+      </div>
     );
   }
 
