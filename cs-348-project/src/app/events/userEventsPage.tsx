@@ -8,6 +8,7 @@ import EventDetailsModal from "@/app/events/EventDetailsModal";
 import UserModal from "@/app/events/UserModal";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import checkBanList from '../lib/events/checkBanList';
 
 const UserEventsPage = async () => {
   const userId = cookies().get("userId")?.value;
@@ -36,6 +37,16 @@ const UserEventsPage = async () => {
     </div>
     );
   }
+
+  const banned: Boolean = await checkBanList(userId);
+  if (banned) 
+  {
+    return (
+      <div className="min-h-screen bg-red-500 text-white flex items-center justify-center">
+        <h1 className="text-4xl font-bold">You have more than 3 strikes!</h1>
+      </div>
+    );
+  };
 
   const events: IEvent[] = await listUserEvents(userId);
   const usersInfo: IUser[] = await listUserDetails(userId);

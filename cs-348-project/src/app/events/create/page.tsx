@@ -4,8 +4,14 @@ import { ICreateEvent } from '@/app/lib/events/event';
 import createEvent from '@/app/lib/events/createEvent';
 import React from 'react';
 import Link from 'next/link';
+import { IUser } from '@/app/lib/events/user';
+import listUserDetails from '@/app/lib/events/listUserInfo';
+import { useEffect } from 'react';
+import checkBanList from '@/app/lib/events/checkBanList';
+import { useRouter } from 'next/navigation';
 
 const CreateEventPage = () => {
+  const router = useRouter();
   let user_id = localStorage.getItem('userId') || "29a6cd80-abaf-4964-a787-d05e245081b4";
 
   if (user_id == "29a6cd80-abaf-4964-a787-d05e245081b4") {
@@ -31,6 +37,22 @@ const CreateEventPage = () => {
     </div>
     );
   }
+
+  const [banned, setIsBanned] = useState(false)
+  useEffect(() => {
+    const fetchBanStatus = async () => {
+      console.log(user_id)
+      if (user_id != "29a6cd80-abaf-4964-a787-d05e245081b4") 
+      { 
+        const banned = await checkBanList(user_id);
+        setIsBanned(banned);
+      } 
+    };
+
+    fetchBanStatus();
+  }, [user_id]);
+
+  if (banned) router.push('/events/banned'); 
   
   const [formData, setFormData] = useState<ICreateEvent>({
     name: '',

@@ -8,6 +8,8 @@ import UserModal from "@/app/events/UserModal";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import RsvpButton from '@/app/events/RsvpButton';
+import { IUser } from '../lib/events/user';
+import checkBanList from '../lib/events/checkBanList';
 import { listActiveUNRSVPEDEvents } from '@/app/lib/events/listEventsNotAttending';
 import {NextPageButton, PrevPageButton} from '@/app/events/ChangePageButton';
 
@@ -15,9 +17,18 @@ const EventsPage = async () => {
   await updateEventsStatus();
   const userId = cookies().get("userId")?.value;
   const userName = cookies().get("userName")?.value;
+  const events: IEvent[] = await listActiveUNRSVPEDEvents(userId);
+  const banned: Boolean = await checkBanList(userId);
   
-  let events: IEvent[] = await listActiveUNRSVPEDEvents(userId);
-
+  if (banned)
+  {
+    return (
+      <div className="min-h-screen bg-red-500 text-white flex items-center justify-center">
+        <h1 className="text-4xl font-bold">You have more than 3 strikes!</h1>
+      </div>
+    );
+  }
+ 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4">
       <div className="container mx-auto relative">
