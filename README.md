@@ -1,4 +1,4 @@
-# 🕺 CS-348-Project
+# 🕺 event.io
 
 ## Database Setup Instructions
 1. Install postgreSQL 16.3 using the following link 'https://www.enterprisedb.com/downloads/postgres-postgresql-downloads'
